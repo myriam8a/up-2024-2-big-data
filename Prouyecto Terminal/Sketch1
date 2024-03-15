@@ -1,0 +1,22 @@
+import requests
+
+def obtener_publicaciones():
+    url = 'https://jsonplaceholder.typicode.com/posts'
+    response = requests.get(url)
+
+    if response.status_code == 200:
+        publicaciones = response.json()
+        return publicaciones
+    else:
+        return "Error en la solicitud, código de estado: {}".format(response.status_code)
+
+def main():
+    publicaciones = obtener_publicaciones()
+    if isinstance(publicaciones, list):
+        for publicacion in publicaciones[:5]:  # Mostrar solo las primeras 5 publicaciones
+            print(f"ID: {publicacion['id']}, Título: {publicacion['title']}\nContenido: {publicacion['body']}\n")
+    else:
+        print(publicaciones)
+
+if __name__ == "__main__":
+    main()
